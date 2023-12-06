@@ -1,12 +1,9 @@
 // Aqui es donde se controlan los datos del juego, como el tablero, los rounds jugados y demas
 const game = (() => {
+  const gameControler = gameControlerFactory();
   const board = [];
+  gameControler.clearBoard();
 
-  for (let i = 0; i < 9; i++) {
-    board[i] = [];
-    board[i] = Cell(i);
-    console.log(board[i].id);
-  }
   let playerActual;
   console.log(board);
 
@@ -36,9 +33,19 @@ function Cell(cellID) {
   return { addToken, getToken, id };
 }
 
-//Esto controla todos losaspectos dejugabilidad del juego
-function gameControler() {
+//Esto controla todos los aspectos dejugabilidad del juego
+
+let gameControlerFactory = () => {
   function putToken(player, cell) {
     game.board[cell] = player.token;
   }
+
+  function clearBoard() {
+    for (let i = 0; i < 9; i++) {
+      game.board[i] = [];
+      game.board[i] = Cell(i);
+      console.log(board[i].id);
+    }
+  }
+  return { putToken, clearBoard };
 }
