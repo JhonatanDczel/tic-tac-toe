@@ -2,13 +2,10 @@
 const game = (() => {
   const board = [];
 
-  for (let i = 0; i < 3; i++) {
+  for (let i = 0; i < 9; i++) {
     board[i] = [];
-    for (let j = 0; j < 3; j++) {
-      board[i][j] = Cell();
-      board[i][j].id = i * 3 + j;
-      console.log(board[i][j].id);
-    }
+    board[i] = Cell(i);
+    console.log(board[i].id);
   }
   let playerActual;
   console.log(board);
@@ -19,14 +16,14 @@ const game = (() => {
 //Factory objets para los jugadores
 function player(playerName, playerToken) {
   let wins = 0;
-  let token = playerName;
-  let name = playerToken;
+  let name = playerName;
+  let token = playerToken;
 }
 
 //Generador de objetos para las celdas
-function Cell() {
+function Cell(cellID) {
   let value = 0;
-  let id;
+  let id = cellID;
 
   const addToken = (p) => {
     value = p.token;
@@ -36,12 +33,12 @@ function Cell() {
     return value;
   };
 
-  return { addToken, getToken };
+  return { addToken, getToken, id };
 }
 
 //Esto controla todos losaspectos dejugabilidad del juego
 function gameControler() {
-  function putToken(p, c) {
-    game.board[][]
+  function putToken(player, cell) {
+    game.board[cell] = player.token;
   }
 }
