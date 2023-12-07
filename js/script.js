@@ -17,15 +17,10 @@ const gameControlerFactory = (b) => {
 
 function DisplayControler(b) {
   function refreshDisplay() {
-    let renderedBoardTitle = " TIC TAC TOE GAME! ";
-    let renderedBoard = "";
-    let idx = 0;
-    for (let i = 0; i < 3; i++) {
-      let fila = `\n  ${b[idx++].getToken()}  ${b[idx++].getToken()}  ${b[idx++].getToken()}  `;
-      renderedBoard += fila;
-    }
-    console.log(`%c${renderedBoardTitle}`, "background-color: #9ece6a; font-size: 14px; font-weight: 700; color: black; text-align: center; border-radius: 5px;");
-    console.log(`%c${renderedBoard}`, "font-size: 20px; font-weight: 900; line-height: 1.5;");
+    b.forEach(c => {
+      const button = document.getElementById(c.id);
+      button.textContent = c.getToken();
+    });
   }
 
   (function generateCells() {
