@@ -21,6 +21,7 @@ function DisplayControler(b) {
       const button = document.getElementById(c.id);
       button.textContent = c.getToken();
     });
+    show("Datos actualizados");
   }
 
   (function generateCells() {
