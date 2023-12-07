@@ -14,12 +14,25 @@ const gameControlerFactory = (b) => {
   }
   return { putToken, clearBoard };
 }
+
+function displayControler() {
+  function refreshDisplay() {
+    let renderedBoardTitle = " TIC TAC TOE GAME! ";
+    let renderedBoard = "";
+    let idx = 0;
+    for (let i = 0; i < 3; i++) {
+      let fila = `\n  ${game.board[idx++].getToken()}  ${game.board[idx++].getToken()}  ${game.board[idx++].getToken()}  `;
+      renderedBoard += fila;
+    }
+    console.log(`%c${renderedBoardTitle}`, "background-color: #9ece6a; font-size: 14px; font-weight: 700; color: black; text-align: center; border-radius: 5px;");
+    console.log(`%c${renderedBoard}`, "font-size: 20px; font-weight: 900; line-height: 1.5;");
+  }
+  return { refreshDisplay };
+}
 // Aqui es donde se controlan los datos del juego, como el tablero, los rounds jugados y demas
-// IIFE supongo que es para tener seugridad que no alteraran tu codigo desde afuera
-// gameControlerFactory intentaba accedera a board atraves de game pero game aun no entregaba board, aqui se lo pasamos como parametro
 // le pasamos board a gameControlerFactory, y como los arrays son objetos lo podras modificar desde afuera
 const game = (() => {
-  const computer = Player("Computer", "o");
+  const computer = Computer("Computer", "o");
   const user = Player("User", "x");
   const board = [];
   const gameControler = gameControlerFactory(board);
@@ -46,7 +59,7 @@ function Computer(computerName, computerToken) {
 
 //Generador de objetos para las celdas
 function Cell(cellID) {
-  let value = 0;
+  let value = "O";
   let id = cellID;
 
   const addToken = (p) => {
