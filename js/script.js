@@ -1,7 +1,26 @@
+// gameControlerFactory es una funcion flecha almenado en una constante de modo que si esta abajo nada de lo
+// que esta arriba podra acceder a el, en cambio si usamos una funcion normal /function gameControlerFactory() si
+// podria ya que Js tiene algo llamado hoisting que eleva las funciones para que estas sean accesibles
+const gameControlerFactory = (b) => {
+  function putToken(player, cell) {
+    b[cell] = player.token;
+  }
+
+  function clearBoard() {
+    for (let i = 0; i < 9; i++) {
+      b[i] = [];
+      b[i] = Cell(i);
+    }
+  }
+  return { putToken, clearBoard };
+}
 // Aqui es donde se controlan los datos del juego, como el tablero, los rounds jugados y demas
-const game = (() => {
-  const gameControler = gameControlerFactory();
+// IIFE supongo que es para tener seugridad que no alteraran tu codigo desde afuera
+// gameControlerFactory intentaba accedera a board atraves de game pero game aun no entregaba board, aqui se lo pasamos como parametro
+// le pasamos board a gameControlerFactory, y como los arrays son objetos lo podras modificar desde afuera
+(() => {
   const board = [];
+  const gameControler = gameControlerFactory(board);
   gameControler.clearBoard();
 
   let playerActual;
@@ -35,17 +54,3 @@ function Cell(cellID) {
 
 //Esto controla todos los aspectos dejugabilidad del juego
 
-let gameControlerFactory = () => {
-  function putToken(player, cell) {
-    game.board[cell] = player.token;
-  }
-
-  function clearBoard() {
-    for (let i = 0; i < 9; i++) {
-      game.board[i] = [];
-      game.board[i] = Cell(i);
-      console.log(board[i].id);
-    }
-  }
-  return { putToken, clearBoard };
-}
