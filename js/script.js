@@ -19,21 +19,29 @@ const gameControlerFactory = (b) => {
 // gameControlerFactory intentaba accedera a board atraves de game pero game aun no entregaba board, aqui se lo pasamos como parametro
 // le pasamos board a gameControlerFactory, y como los arrays son objetos lo podras modificar desde afuera
 const game = (() => {
+  const computer = Player("Computer", "o");
+  const user = Player("User", "x");
   const board = [];
   const gameControler = gameControlerFactory(board);
   gameControler.clearBoard();
 
   let playerActual;
 
-  return { board, gameControler };
+  return { board, gameControler, computer, user };
 })();
 
 //Factory objets para los jugadores
-function player(playerName, playerToken) {
+function Player(playerName, playerToken) {
   let wins = 0;
   let name = playerName;
   let token = playerToken;
   return { name, token };
+}
+
+function Computer(computerName, computerToken) {
+  const player = Player("Computer", "o");
+
+  return Object.assign({}, player, {});
 }
 
 //Generador de objetos para las celdas
