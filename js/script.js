@@ -2,8 +2,10 @@
 // que esta arriba podra acceder a el, en cambio si usamos una funcion normal /function gameControlerFactory() si
 // podria ya que Js tiene algo llamado hoisting que eleva las funciones para que estas sean accesibles
 const gameControlerFactory = (b) => {
-  function putToken(player, cell) {
-    b[cell] = player.token;
+  function putToken(player, cellIndex) {
+    b[cellIndex].addToken(player);
+    console.log(b[cellIndex]);
+    console.table(b);
   }
 
   function clearBoard() {
@@ -21,6 +23,7 @@ function DisplayControler(b) {
       const button = document.getElementById(c.id);
       button.textContent = c.getToken();
     });
+    console.table(b);
     show("Datos actualizados");
   }
 
@@ -39,7 +42,7 @@ function DisplayControler(b) {
 // le pasamos board a gameControlerFactory, y como los arrays son objetos lo podras modificar desde afuera
 const game = (() => {
   const computer = Computer("Computer", "o");
-  const user = Player("User", "x");
+  const user = User("User", "x");
   const board = [];
   const gameControler = gameControlerFactory(board);
   gameControler.clearBoard();
@@ -48,7 +51,7 @@ const game = (() => {
 
   displayControler.refreshDisplay();
 
-  return { board, gameControler, computer, user };
+  return { board, gameControler, computer, user, displayControler };
 })();
 
 //Factory objets para los jugadores
@@ -59,6 +62,11 @@ function Player(playerName, playerToken) {
   return { name, token };
 }
 
+function User(userName, userToken) {
+  const player = Player(userName, userToken)
+  return Object.assign({}, player, {});
+}
+
 function Computer(computerName, computerToken) {
   const player = Player("Computer", "o");
 
@@ -67,7 +75,7 @@ function Computer(computerName, computerToken) {
 
 //Generador de objetos para las celdas
 function Cell(cellID) {
-  let value = "O";
+  let value = " ";
   let id = cellID;
 
   const addToken = (p) => {
