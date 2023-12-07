@@ -15,13 +15,13 @@ const gameControlerFactory = (b) => {
   return { putToken, clearBoard };
 }
 
-function displayControler() {
+function DisplayControler(b) {
   function refreshDisplay() {
     let renderedBoardTitle = " TIC TAC TOE GAME! ";
     let renderedBoard = "";
     let idx = 0;
     for (let i = 0; i < 3; i++) {
-      let fila = `\n  ${game.board[idx++].getToken()}  ${game.board[idx++].getToken()}  ${game.board[idx++].getToken()}  `;
+      let fila = `\n  ${b[idx++].getToken()}  ${b[idx++].getToken()}  ${b[idx++].getToken()}  `;
       renderedBoard += fila;
     }
     console.log(`%c${renderedBoardTitle}`, "background-color: #9ece6a; font-size: 14px; font-weight: 700; color: black; text-align: center; border-radius: 5px;");
@@ -37,8 +37,10 @@ const game = (() => {
   const board = [];
   const gameControler = gameControlerFactory(board);
   gameControler.clearBoard();
-
   let playerActual;
+  const displayControler = DisplayControler(board);
+
+  displayControler.refreshDisplay();
 
   return { board, gameControler, computer, user };
 })();
