@@ -1,0 +1,28 @@
+* {box-sizing: border-box; margin: 0; padding: 0;}
+
+html, body {
+  width: 100%;
+  height: 100svh;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+main {
+  background-color: red;
+}
+
+.cell-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: repeat(3, 1fr);
+  border: 1px solid black;
+}
+
+button.cell {
+  width: 13rem;
+  height: 13rem;
+}
