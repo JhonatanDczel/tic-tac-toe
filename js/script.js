@@ -18,15 +18,14 @@ const gameControlerFactory = (b) => {
 // IIFE supongo que es para tener seugridad que no alteraran tu codigo desde afuera
 // gameControlerFactory intentaba accedera a board atraves de game pero game aun no entregaba board, aqui se lo pasamos como parametro
 // le pasamos board a gameControlerFactory, y como los arrays son objetos lo podras modificar desde afuera
-(() => {
+const game = (() => {
   const board = [];
   const gameControler = gameControlerFactory(board);
   gameControler.clearBoard();
 
   let playerActual;
-  console.log(board);
 
-  return { board };
+  return { board, gameControler };
 })();
 
 //Factory objets para los jugadores
@@ -34,6 +33,7 @@ function player(playerName, playerToken) {
   let wins = 0;
   let name = playerName;
   let token = playerToken;
+  return { name, token };
 }
 
 //Generador de objetos para las celdas
